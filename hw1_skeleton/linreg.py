@@ -30,23 +30,21 @@ class LinearRegression:
             the final theta found by gradient descent
         '''
         n,d = X.shape
-        self.JHist = []
-        for i in xrange(self.n_iter):
+        self.JHist = []    
+        for i in range(self.n_iter):
             self.JHist.append( (self.computeCost(X, y, theta), theta) )
             print ("Iteration: ", i+1, " Cost: ", self.JHist[i][0], " Theta: ", theta)
             # TODO:  add update equation here
-            n, d = X.shape
-            thetaDimesions, b = theta.shape
-            corrections = [0] * thetaDimesions
-            
+            n,d = X.shape
+            thetaDimensions,b = theta.shape     
+            corrections = [0] * thetaDimensions
+
             for j in range(0,n):
                 for thetaDimension in range(0,thetaDimensions):
                     corrections[thetaDimension] += (theta.getT()*X[j,:].getT() - y[j])*X[j,thetaDimension]
-            
             for thetaDimension in range(0,thetaDimensions):
-                theta[thetaDimension] = theta[thetaDimension] - corrections[thetaDimension]*(self.alpha/n)
+                theta[thetaDimension] = theta[thetaDimension] - corrections[thetaDimension]*(self.alpha/n)               
         return theta
-    
 
     def computeCost(self, X, y, theta):
         '''
@@ -73,7 +71,7 @@ class LinearRegression:
         '''
         n = len(y)
         n,d = X.shape
-        if self.theta==None:
+        if np.all(self.theta == None):
             self.theta = np.matrix(np.zeros((d,1)))
         self.theta = self.gradientDescent(X,y,self.theta)    
 
@@ -86,5 +84,4 @@ class LinearRegression:
         Returns:
             an n-dimensional numpy vector of the predictions
         '''
-        # TODO:  add prediction function here
         return X*self.theta

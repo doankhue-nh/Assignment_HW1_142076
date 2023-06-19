@@ -53,10 +53,8 @@ def plotRegLine1D( lr_model, X, y):
         lr_model - linear regression trained model
     '''
     plotData1D(X[:,1], y, to_block =False)
-    plt.hold(True)
     plt.plot(X[:,1],X*lr_model.theta,'b-', label='Regression Line')
     plt.legend(loc='lower right')
-    plt.hold(False)
     plt.show()
 
 
