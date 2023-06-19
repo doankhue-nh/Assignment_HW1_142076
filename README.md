@@ -1,4 +1,5 @@
 ## Assignment 1
 
-Here is a record of the work for assignment 1.
-"# Assignment_HW1_142076" 
+Here is my work for assignment 1.
+
+**Đỗ Đoàn Khuê_20192945_N10_HW1** 
