@@ -78,8 +78,8 @@ def visualizeObjective(lr_model,t1_vals,t2_vals, X, y):
 
     # Compute the objective function over the space
     Z = np.zeros(T1.shape)
-    for i in xrange(n):
-        for j in xrange(p):
+    for i in range(n):
+        for j in range(p):
             Z[i,j] = lr_model.computeCost(X,y, np.matrix([T1[i,j],T2[i,j]]).T )
 
     fig = plt.figure()
@@ -96,7 +96,7 @@ def visualizeObjective(lr_model,t1_vals,t2_vals, X, y):
     # If the history of the objective function plot the path taken by the gradient descent
     if lr_model.JHist !=None:
         
-        for ii in xrange(len(lr_model.JHist)-1): 
+        for ii in range(len(lr_model.JHist)-1): 
             t1 = lr_model.JHist[ii][1].tolist()
             t2 = lr_model.JHist[ii+1][1].tolist()
 
@@ -143,15 +143,17 @@ if __name__ == "__main__":
 
     X = np.matrix(allData[:,:-1])
     y = np.matrix((allData[:,-1])).T
-
+    print(X.shape)
     n,d = X.shape
     
     # Add a row of ones for the bias term
     X = np.c_[np.ones((n,1)), X]
+
     
     # initialize the model
     init_theta = np.matrix(np.ones((d+1,1)))*10  # note that we really should be initializing this to be near zero, but starting it near [10,10] works better to visualize gradient descent for this particular problem
-    n_iter = 1500
+    # Khởi tạo ma trận theta d+1 hàng 1 cột với 2 giá trị 10 
+    n_iter = 100
     alpha = 0.01
 
     # Instantiate objects
@@ -166,7 +168,7 @@ if __name__ == "__main__":
     visualizeObjective(lr_model,theta1_vals, theta2_vals, X, y)
 
     # Compute the closed form solution in one line of code
-    theta_closed_form = (X.getT()*X).getI()*X.getT()*y  # TODO:  replace "0" with closed form solution
+    theta_closed_form = (X.T*X).getI()*X.T*y  # TODO:  replace "0" with closed form solution
     print ("theta_closed_form: ", theta_closed_form)
     
 

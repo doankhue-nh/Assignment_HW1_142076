@@ -32,18 +32,27 @@ class LinearRegression:
         n,d = X.shape
         self.JHist = []    
         for i in range(self.n_iter):
-            self.JHist.append( (self.computeCost(X, y, theta), theta) )
+            self.JHist.append((self.computeCost(X, y, theta), theta))
             print ("Iteration: ", i+1, " Cost: ", self.JHist[i][0], " Theta: ", theta)
             # TODO:  add update equation here
+            
+            # Number of observations in the data set
             n,d = X.shape
-            thetaDimensions,b = theta.shape     
-            corrections = [0] * thetaDimensions
 
+            # Vector containing the values of the parameter theta
+            thetaDimensions,b = theta.shape 
+        
+            # Create list contatain "thetaDimensions" element value 0
+            # The list contains the initial adjustment values of theta    
+            corrections = [0] * thetaDimensions
+            
             for j in range(0,n):
                 for thetaDimension in range(0,thetaDimensions):
-                    corrections[thetaDimension] += (theta.getT()*X[j,:].getT() - y[j])*X[j,thetaDimension]
+                    corrections[thetaDimension] += (theta.T*X[j,:].T - y[j])*X[j,thetaDimension] #theta j
             for thetaDimension in range(0,thetaDimensions):
                 theta[thetaDimension] = theta[thetaDimension] - corrections[thetaDimension]*(self.alpha/n)               
+                #update theta
+                #repeat until convergence
         return theta
 
     def computeCost(self, X, y, theta):
@@ -59,7 +68,8 @@ class LinearRegression:
         '''
         # TODO: add objective (cost) equation here
         n,d = X.shape
-        cost = (X*theta - y).getT()*(X*theta - y)/(2*n)
+        cost = (X*theta - y).T*(X*theta - y)/(2*n)
+        # cost = (np.dot(X, theta) - y).T.dot(np.dot(X, theta) - y) / (2 * n)
         return cost[0,0]
 
     def fit(self, X, y):
@@ -85,3 +95,4 @@ class LinearRegression:
             an n-dimensional numpy vector of the predictions
         '''
         return X*self.theta
+
